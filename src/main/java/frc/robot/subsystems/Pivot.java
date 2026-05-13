@@ -22,7 +22,7 @@ public class Pivot extends SubsystemBase {
       new TunablePidController("/Intake/Pivot/", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
   public Pivot() {
-    pivotEncoder.setInverted(true);
+    pivotEncoder.setInverted(false);
     pivotMotor.setBrakeMode(NeutralModeValue.Coast);
     pivotMotor.setInverted(InvertedValue.Clockwise_Positive);
   }
