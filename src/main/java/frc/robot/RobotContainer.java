@@ -236,8 +236,9 @@ public class RobotContainer {
 
         m_DriverController.b().toggleOnTrue(new RobotTarget(m_Shooter, m_Intake, m_FullSend, m_Transition));
 
-        m_OperatorController.a().whileTrue(m_Pivot.dumbIntakeOut());
-    }
+    m_OperatorController.a().whileTrue(m_Pivot.dumbIntakeOut());
+    m_OperatorController.b().whileTrue(m_Pivot.dumbIntakeIn());
+  }
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -79,20 +79,20 @@ public final class Constants {
     public static final int WHEEL_MOTOR2_ID = 33; // inverted follower of 31
 
     public static final int PIVOT_ENCODER_ID = 1;
-    public static final double PIVOT_ENCODER_OFFSET = -94;
+    public static final double PIVOT_ENCODER_OFFSET = -100;
 
     public static final double PIVOT_GEAR_RATIO = 1.0 / 25.0;
     public static final double INTAKE_GEAR_RATIO = 1.0 / 2.0;
 
     public static final double PIVOT_ANGLE_TOLERANCE = 1;
-    public static final double PIVOT_IN_ANGLE = 1;
+    public static final double PIVOT_IN_ANGLE = 3;
     public static final double PIVOT_OUT_ANGLE = 145;
     public static final double PIVOT_RUN_ANGLE = 130;
   }
 
   public static class TransitionConstants {
-    public static final int UPPER_LEFT_MOTOR_ID = 61;
-    public static final int UPPER_RIGHT_MOTOR_ID = 62;
+    // public static final int UPPER_LEFT_MOTOR_ID = 61;//provides absolutely nothing
+    // public static final int UPPER_RIGHT_MOTOR_ID = 62; //provides absolutely nothing
     public static final int LOWER_MOTOR_ID = 52;
 
     public static final double UPPER_GEAR_RATIO = 1.0 / 3.0;

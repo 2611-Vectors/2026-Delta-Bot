@@ -50,9 +50,24 @@ public class Pivot extends SubsystemBase {
 
   public Command dumbIntakeOut() {
     return run(() -> {
-          pivotMotor.setVoltage(10.0);
+          pivotMotor.setVoltage(7.5);
         })
         .until(() -> intakeIsOut())
+        .andThen(
+            () -> {
+              pivotMotor.setVoltage(0.0);
+            })
+        .handleInterrupt(
+            () -> {
+              pivotMotor.setVoltage(0.0);
+            });
+  }
+
+  public Command dumbIntakeIn() {
+    return run(() -> {
+          pivotMotor.setVoltage(-5.0);
+        })
+        .until(() -> pivotEncoder.get() <= IntakeConstants.PIVOT_IN_ANGLE)
         .andThen(
             () -> {
               pivotMotor.setVoltage(0.0);
