@@ -46,9 +46,9 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final int LEFT_MOTOR_ID = 41; // 61;
-    public static final int LEFT_MOTOR2_ID = 42;
-    public static final int RIGHT_MOTOR_ID = 43; // 62;
+    public static final int LEFT_MOTOR_ID = 43; // 61;
+    public static final int LEFT_MOTOR2_ID = 41;
+    public static final int RIGHT_MOTOR_ID = 42; // 62;
     public static final int RIGHT_MOTOR2_ID = 44;
 
     public static final int LEFT_LINEAR_ACTUATOR_ID = 0;

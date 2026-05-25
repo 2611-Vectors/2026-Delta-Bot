@@ -16,7 +16,6 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
 public class Shooter extends SubsystemBase {
   private final KrakenX60 leftMotor = new KrakenX60(ShooterConstants.LEFT_MOTOR_ID);
-
   private final KrakenX60 leftMotor2 = new KrakenX60(ShooterConstants.LEFT_MOTOR2_ID);
   private final KrakenX60 rightMotor = new KrakenX60(ShooterConstants.RIGHT_MOTOR_ID);
   private final KrakenX60 rightMotor2 = new KrakenX60(ShooterConstants.RIGHT_MOTOR2_ID);
@@ -26,11 +25,11 @@ public class Shooter extends SubsystemBase {
   LoggedNetworkNumber manualRPM = new LoggedNetworkNumber("/Shooter/Target RPM", 2900.0);
 
   public Shooter() {
-    leftMotor.setFollower(rightMotor2, MotorAlignmentValue.Opposed);
-    leftMotor.setFollower(leftMotor2, MotorAlignmentValue.Aligned);
+    leftMotor.setFollower(rightMotor2, MotorAlignmentValue.Aligned);
+    leftMotor.setFollower(leftMotor2, MotorAlignmentValue.Opposed);
     leftMotor.setFollower(rightMotor, MotorAlignmentValue.Opposed);
 
-    leftMotor.setInverted(InvertedValue.CounterClockwise_Positive);
+    leftMotor.setInverted(InvertedValue.Clockwise_Positive);
     leftMotor.setStatorCurrentLimit(40);
     leftMotor2.setStatorCurrentLimit(40);
     rightMotor.setStatorCurrentLimit(40);
