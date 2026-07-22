@@ -23,81 +23,88 @@ import org.littletonrobotics.junction.Logger;
 
 /** Add your docs here. */
 public class AutoMath {
-    public AutoMath() {}
+  public AutoMath() {}
 
-    public static Rotation2d getRobotAngleToTarget(Pose2d robotPose, Pose2d target) {
-        robotPose = flipRed(robotPose);
-        double a = robotPose.getX() - target.getX();
-        double b = robotPose.getY() - target.getY();
+  public static Rotation2d getRobotAngleToTarget(Pose2d robotPose, Pose2d target) {
+    robotPose = flipRed(robotPose);
+    double a = robotPose.getX() - target.getX();
+    double b = robotPose.getY() - target.getY();
 
-        return new Rotation2d(
-                Math.atan(b / a) + ((DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) ? 0 : Math.PI));
+    return new Rotation2d(
+        Math.atan(b / a)
+            + ((DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) ? 0 : Math.PI));
+  }
+
+  public static double getDistanceToTarget(Pose2d robotPose, Pose2d target) {
+    robotPose = PathfindToStart.flipRed(robotPose);
+    double a = robotPose.getX() - target.getX();
+    double b = robotPose.getY() - target.getY();
+    double c = Math.sqrt((a * a) + (b * b));
+
+    Logger.recordOutput("Targeting/distToHub", c);
+    return c;
+  }
+
+  public static Pose3d translateTargetByChassisSpeeds(
+      Pose2d robotPose, Pose3d target, ChassisSpeeds speeds) {
+    double dist = getDistanceToTarget(robotPose, target.toPose2d());
+    double speed = getFuelSpeedToTarget(robotPose, target);
+    double time = dist / (speed * Math.cos(LAUNCH_ANGLE));
+
+    Pose2d rotVector = new Pose2d(dist, 0, new Rotation2d());
+    rotVector.rotateAround(
+        new Translation2d(0, 0), new Rotation2d(speeds.omegaRadiansPerSecond * time));
+
+    Pose3d out =
+        new Pose3d(
+            target.getX() + Math.abs(speeds.vxMetersPerSecond * time) + rotVector.getX(),
+            target.getY() + Math.abs(speeds.vyMetersPerSecond * time) + rotVector.getY(),
+            target.getZ(),
+            target.getRotation());
+
+    Logger.recordOutput("Targeting/Target", target);
+    Logger.recordOutput("Targeting/Target New", out);
+    return out;
+  }
+
+  public static double getFuelSpeedToTarget(Pose2d robotPose, Pose3d target) {
+    double dist = getDistanceToTarget(robotPose, target.toPose2d());
+    double heightDiff = target.getZ() - INITIAL_HEIGHT;
+    return Math.sqrt(
+        (GRAVITATIONAL_CONSTANT * (dist * dist))
+            / (LAUNCH_ANGLE_COS * (Math.tan(LAUNCH_ANGLE) * dist - heightDiff)));
+  }
+
+  public static double getFuelSpeedToRobot(double dist) {
+    return Math.sqrt(
+        (GRAVITATIONAL_CONSTANT * (dist * dist))
+            / (LAUNCH_ANGLE_COS * (Math.tan(LAUNCH_ANGLE) * dist)));
+  }
+
+  public static Pose2d flipRed(Pose2d point) {
+    if (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) {
+      point =
+          new Pose2d(
+              FIELD_WIDTH - point.getX(),
+              FIELD_HEIGHT - point.getY(),
+              Rotation2d.fromDegrees(flipAngle(point.getRotation().getDegrees())));
     }
 
-    public static double getDistanceToTarget(Pose2d robotPose, Pose2d target) {
-        robotPose = PathfindToStart.flipRed(robotPose);
-        double a = robotPose.getX() - target.getX();
-        double b = robotPose.getY() - target.getY();
-        double c = Math.sqrt((a * a) + (b * b));
+    return point;
+  }
 
-        Logger.recordOutput("Targeting/distToHub", c);
-        return c;
+  public static Rotation2d flipRed(Rotation2d angle) {
+    if (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red)
+      angle = Rotation2d.fromDegrees(flipAngle(angle.getDegrees()));
+
+    return angle;
+  }
+
+  public static double flipAngle(double angle) {
+    double reflectedAngle = -180 - angle;
+    if (reflectedAngle < -180) {
+      return reflectedAngle + 360;
     }
-
-    public static Pose3d translateTargetByChassisSpeeds(Pose2d robotPose, Pose3d target, ChassisSpeeds speeds) {
-        double dist = getDistanceToTarget(robotPose, target.toPose2d());
-        double speed = getFuelSpeedToTarget(robotPose, target);
-        double time = dist / (speed * Math.cos(LAUNCH_ANGLE));
-
-        Pose2d rotVector = new Pose2d(dist, 0, new Rotation2d());
-        rotVector.rotateAround(new Translation2d(0, 0), new Rotation2d(speeds.omegaRadiansPerSecond * time));
-
-        Pose3d out = new Pose3d(
-                target.getX() + Math.abs(speeds.vxMetersPerSecond * time) + rotVector.getX(),
-                target.getY() + Math.abs(speeds.vyMetersPerSecond * time) + rotVector.getY(),
-                target.getZ(),
-                target.getRotation());
-
-        Logger.recordOutput("Targeting/Target", target);
-        Logger.recordOutput("Targeting/Target New", out);
-        return out;
-    }
-
-    public static double getFuelSpeedToTarget(Pose2d robotPose, Pose3d target) {
-        double dist = getDistanceToTarget(robotPose, target.toPose2d());
-        double heightDiff = target.getZ() - INITIAL_HEIGHT;
-        return Math.sqrt((GRAVITATIONAL_CONSTANT * (dist * dist))
-                / (LAUNCH_ANGLE_COS * (Math.tan(LAUNCH_ANGLE) * dist - heightDiff)));
-    }
-
-    public static double getFuelSpeedToRobot(double dist) {
-        return Math.sqrt(
-                (GRAVITATIONAL_CONSTANT * (dist * dist)) / (LAUNCH_ANGLE_COS * (Math.tan(LAUNCH_ANGLE) * dist)));
-    }
-
-    public static Pose2d flipRed(Pose2d point) {
-        if (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) {
-            point = new Pose2d(
-                    FIELD_WIDTH - point.getX(),
-                    FIELD_HEIGHT - point.getY(),
-                    Rotation2d.fromDegrees(flipAngle(point.getRotation().getDegrees())));
-        }
-
-        return point;
-    }
-
-    public static Rotation2d flipRed(Rotation2d angle) {
-        if (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red)
-            angle = Rotation2d.fromDegrees(flipAngle(angle.getDegrees()));
-
-        return angle;
-    }
-
-    public static double flipAngle(double angle) {
-        double reflectedAngle = -180 - angle;
-        if (reflectedAngle < -180) {
-            return reflectedAngle + 360;
-        }
-        return reflectedAngle;
-    }
+    return reflectedAngle;
+  }
 }

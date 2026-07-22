@@ -22,19 +22,21 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RobotTarget extends SequentialCommandGroup {
 
-    /** Creates a new AutoShooterDistance. */
-    public RobotTarget(Shooter m_Shooter, Intake m_Intake, FullSend m_FullSend, Transition m_Transition) {
-        // Add your commands in the addCommands() call, e.g.
-        // addCommands(new FooCommand(), new BarCommand());
-        LoggedNetworkNumber dist = new LoggedNetworkNumber("/Shooter/Robot Distance", 0.0);
-        double RobotDist = Units.inchesToMeters(dist.get());
+  /** Creates a new AutoShooterDistance. */
+  public RobotTarget(
+      Shooter m_Shooter, Intake m_Intake, FullSend m_FullSend, Transition m_Transition) {
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    LoggedNetworkNumber dist = new LoggedNetworkNumber("/Shooter/Robot Distance", 0.0);
+    double RobotDist = Units.inchesToMeters(dist.get());
 
-        Supplier<Double> shooterSpeed = () -> TIP_TO_RPM * AutoMath.getFuelSpeedToRobot(RobotDist);
+    Supplier<Double> shooterSpeed = () -> TIP_TO_RPM * AutoMath.getFuelSpeedToRobot(RobotDist);
 
-        addCommands(new ParallelCommandGroup(
-                m_Shooter.setShooterRPM(() -> shooterSpeed.get()),
-                m_FullSend.setFullSendRPM(() -> 5000.0),
-                m_Transition.setLowerTransitionRPM(() -> 1000.0),
-                m_Intake.setIntakeRPM(() -> 500.0)));
-    }
+    addCommands(
+        new ParallelCommandGroup(
+            m_Shooter.setShooterRPM(() -> shooterSpeed.get()),
+            m_FullSend.setFullSendRPM(() -> 5000.0),
+            m_Transition.setLowerTransitionRPM(() -> 1000.0),
+            m_Intake.setIntakeRPM(() -> 500.0)));
+  }
 }

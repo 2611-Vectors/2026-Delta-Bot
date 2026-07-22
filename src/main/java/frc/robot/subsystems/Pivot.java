@@ -23,7 +23,7 @@ public class Pivot extends SubsystemBase {
 
   public Pivot() {
     pivotEncoder.setInverted(false);
-    pivotMotor.setBrakeMode(NeutralModeValue.Coast);
+    pivotMotor.setBrakeMode(NeutralModeValue.Brake);
     pivotMotor.setInverted(InvertedValue.Clockwise_Positive);
   }
 
@@ -65,7 +65,7 @@ public class Pivot extends SubsystemBase {
 
   public Command dumbIntakeIn() {
     return run(() -> {
-          pivotMotor.setVoltage(-5.0);
+          pivotMotor.setVoltage(-3.0);
         })
         .until(() -> pivotEncoder.get() <= IntakeConstants.PIVOT_IN_ANGLE)
         .andThen(

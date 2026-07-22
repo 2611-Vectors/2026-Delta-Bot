@@ -23,7 +23,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.setFollower(intakeMotor2, MotorAlignmentValue.Opposed);
 
     intakeMotor.setInverted(InvertedValue.CounterClockwise_Positive);
-    intakeMotor.setStatorCurrentLimit(80);
+    intakeMotor.setStatorCurrentLimit(40);
   }
 
   public Command setIntakeVoltage(Supplier<Double> voltage) {

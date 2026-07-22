@@ -32,6 +32,7 @@ public class Shooter extends SubsystemBase {
     leftMotor.setInverted(InvertedValue.Clockwise_Positive);
     leftMotor.setStatorCurrentLimit(40);
     leftMotor2.setStatorCurrentLimit(40);
+    leftMotor2.setStatorCurrentLimit(-40);
     rightMotor.setStatorCurrentLimit(40);
     rightMotor2.setStatorCurrentLimit(40);
   }
