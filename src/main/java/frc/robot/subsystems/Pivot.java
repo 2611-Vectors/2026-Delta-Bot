@@ -23,7 +23,7 @@ public class Pivot extends SubsystemBase {
 
   public Pivot() {
     pivotEncoder.setInverted(false);
-    pivotMotor.setBrakeMode(NeutralModeValue.Brake);
+    pivotMotor.setBrakeMode(NeutralModeValue.Coast);
     pivotMotor.setInverted(InvertedValue.Clockwise_Positive);
   }
 
