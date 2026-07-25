@@ -1,0 +1,186 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.0,
+        "y": 6.069000000000001
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.0,
+        "y": 7.069000000000001
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.5,
+        "y": 7.4190000000000005
+      },
+      "prevControl": {
+        "x": 2.9019111111111107,
+        "y": 7.399511111111113
+      },
+      "nextControl": {
+        "x": 6.341928582083131,
+        "y": 7.441462543683941
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.0,
+        "y": 6.269000000000001
+      },
+      "prevControl": {
+        "x": 8.005383333333333,
+        "y": 7.2301777777777785
+      },
+      "nextControl": {
+        "x": 7.993279184318277,
+        "y": 5.069018820715686
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.920394444444445,
+        "y": 4.60505
+      },
+      "prevControl": {
+        "x": 7.919951852961222,
+        "y": 4.5753012676036695
+      },
+      "nextControl": {
+        "x": 6.101861111111111,
+        "y": 4.62941111111111
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.5,
+        "y": 5.369000000000001
+      },
+      "prevControl": {
+        "x": 6.764483333333334,
+        "y": 5.0669111111111125
+      },
+      "nextControl": {
+        "x": 4.93554210317369,
+        "y": 5.503850697025257
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.0,
+        "y": 6.069000000000001
+      },
+      "prevControl": {
+        "x": 3.6560055555555557,
+        "y": 5.232566666666667
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": -136.69
+    },
+    {
+      "waypointRelativePos": 0.7178423236514524,
+      "rotationDegrees": 10.289268961704781
+    },
+    {
+      "waypointRelativePos": 1.1950207468879672,
+      "rotationDegrees": -0.0
+    },
+    {
+      "waypointRelativePos": 1.5850622406638957,
+      "rotationDegrees": -27.75069329289287
+    },
+    {
+      "waypointRelativePos": 2.579253112033197,
+      "rotationDegrees": -139.40464640578978
+    },
+    {
+      "waypointRelativePos": 3.5,
+      "rotationDegrees": 115.0
+    },
+    {
+      "waypointRelativePos": 3.9,
+      "rotationDegrees": 140.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.9776674937965348,
+      "constraints": {
+        "maxVelocity": 2.2,
+        "maxAcceleration": 5.0,
+        "maxAngularVelocity": 720.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 4.0,
+      "maxWaypointRelativePos": 4.65,
+      "constraints": {
+        "maxVelocity": 2.6,
+        "maxAcceleration": 5.0,
+        "maxAngularVelocity": 720.0,
+        "maxAngularAcceleration": 360.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "runIntake",
+      "waypointRelativePos": 0.9,
+      "endWaypointRelativePos": 5.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "runIntake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 720.0,
+    "maxAngularAcceleration": 360.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 136.06538190555025
+  },
+  "reversed": false,
+  "folder": "Left",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 135.0
+  },
+  "useDefaultConstraints": false
+}
