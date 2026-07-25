@@ -208,7 +208,7 @@ public class RobotContainer {
             m_Drive,
             () -> -m_DriverController.getLeftY(),
             () -> -m_DriverController.getLeftX(),
-            () -> (-m_DriverController.getRightX() * 0.75)));
+            () -> (-m_DriverController.getRightX())));
 
     // Lock to -20° when the A button is held
     m_DriverController
