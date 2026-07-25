@@ -173,7 +173,7 @@ public class RobotContainer {
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-
+    //autoChooser.addOption("Nothing", Commands.none());
     // Set up SysId routines
     // autoChooser.addOption(
     //         "Drive Wheel Radius Characterization",
@@ -208,7 +208,7 @@ public class RobotContainer {
             m_Drive,
             () -> -m_DriverController.getLeftY(),
             () -> -m_DriverController.getLeftX(),
-            () -> -m_DriverController.getRightX()));
+            () -> (-m_DriverController.getRightX()*0.5)));
 
     // Lock to -20° when the A button is held
     m_DriverController
